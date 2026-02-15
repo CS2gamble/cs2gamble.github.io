@@ -640,7 +640,7 @@
             // Knife and Gloves
             { name: 'Knife', type: 'Knife', rarity: 'consumer-grade', imageName: 'knifet.webp' },
             { name: 'Knife', type: 'Knife', rarity: 'consumer-grade', imageName: 'knifect.webp' },
-            { name: 'Default T Gloves', type: 'Gloves', rarity: 'consumer-grade', imageName: 'glovest.webp' },
+            { name: 'Default T Gloves', type: 'Gloves', rarity: 'consumer-grade', imageName: 'glovest.webp', imageScale: 1.25 },
             { name: 'Default CT Gloves', type: 'Gloves', rarity: 'consumer-grade', imageName: 'glovesct.webp' },
         ];
 
@@ -687,9 +687,12 @@
         defaultInventory.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = `item-card ${item.rarity}`;
+            
+            const imageScale = item.imageScale ? `style="transform: scale(${item.imageScale});"` : '';
+            
             card.innerHTML = `
                 <div class="item-image-container">
-                    <img src="images/weapons/${item.imageName}" alt="${item.name}" class="item-image">
+                    <img src="images/weapons/${item.imageName}" alt="${item.name}" class="item-image" ${imageScale}>
                 </div>
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
@@ -810,7 +813,14 @@
 
             // Update weapon image in modal - centered
             const modalDisplay = document.getElementById('modalWeaponEmoji');
-            modalDisplay.innerHTML = `<img src="images/weapons/${item.imageName}" alt="${item.name}" style="max-width: 70%; max-height: 70%; object-fit: contain; display: block; margin: auto;">`;
+            // Make knives and gloves 2x bigger in modal
+            let modalScale = '';
+            if (item.type === 'Knife' || item.type === 'Gloves') {
+                modalScale = 'transform: scale(2);';
+            } else if (item.imageScale) {
+                modalScale = `transform: scale(${item.imageScale});`;
+            }
+            modalDisplay.innerHTML = `<img src="images/weapons/${item.imageName}" alt="${item.name}" style="max-width: 70%; max-height: 70%; object-fit: contain; display: block; margin: auto; ${modalScale}">`;
 
             // Update rarity bar color
             const rarityBar = document.getElementById('modalRarityBar');

@@ -640,7 +640,7 @@
             // Knife and Gloves
             { name: 'Knife', type: 'Knife', rarity: 'consumer-grade', imageName: 'knifet.webp' },
             { name: 'Knife', type: 'Knife', rarity: 'consumer-grade', imageName: 'knifect.webp' },
-            { name: 'Default T Gloves', type: 'Gloves', rarity: 'consumer-grade', imageName: 'glovest.webp', imageScale: 1.25 },
+            { name: 'Default T Gloves', type: 'Gloves', rarity: 'consumer-grade', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 15, offsetY: 15 },
             { name: 'Default CT Gloves', type: 'Gloves', rarity: 'consumer-grade', imageName: 'glovesct.webp' },
         ];
 
@@ -688,11 +688,21 @@
             const card = document.createElement('div');
             card.className = `item-card ${item.rarity}`;
             
-            const imageScale = item.imageScale ? `style="transform: scale(${item.imageScale});"` : '';
+            let imageStyle = '';
+            if (item.imageScale || item.offsetX || item.offsetY) {
+                const transforms = [];
+                if (item.imageScale) transforms.push(`scale(${item.imageScale})`);
+                if (item.offsetX || item.offsetY) {
+                    const x = item.offsetX || 0;
+                    const y = item.offsetY || 0;
+                    transforms.push(`translate(${x}px, ${y}px)`);
+                }
+                imageStyle = `style="transform: ${transforms.join(' ')};"`;
+            }
             
             card.innerHTML = `
                 <div class="item-image-container">
-                    <img src="images/weapons/${item.imageName}" alt="${item.name}" class="item-image" ${imageScale}>
+                    <img src="images/weapons/${item.imageName}" alt="${item.name}" class="item-image" ${imageStyle}>
                 </div>
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
@@ -814,13 +824,19 @@
             // Update weapon image in modal - centered
             const modalDisplay = document.getElementById('modalWeaponEmoji');
             // Make knives and gloves 2x bigger in modal
-            let modalScale = '';
+            const transforms = [];
             if (item.type === 'Knife' || item.type === 'Gloves') {
-                modalScale = 'transform: scale(2);';
+                transforms.push('scale(2)');
             } else if (item.imageScale) {
-                modalScale = `transform: scale(${item.imageScale});`;
+                transforms.push(`scale(${item.imageScale})`);
             }
-            modalDisplay.innerHTML = `<img src="images/weapons/${item.imageName}" alt="${item.name}" style="max-width: 70%; max-height: 70%; object-fit: contain; display: block; margin: auto; ${modalScale}">`;
+            if (item.offsetX || item.offsetY) {
+                const x = item.offsetX || 0;
+                const y = item.offsetY || 0;
+                transforms.push(`translate(${x}px, ${y}px)`);
+            }
+            const modalTransform = transforms.length > 0 ? `transform: ${transforms.join(' ')};` : '';
+            modalDisplay.innerHTML = `<img src="images/weapons/${item.imageName}" alt="${item.name}" style="max-width: 70%; max-height: 70%; object-fit: contain; display: block; margin: auto; ${modalTransform}">`;
 
             // Update rarity bar color
             const rarityBar = document.getElementById('modalRarityBar');

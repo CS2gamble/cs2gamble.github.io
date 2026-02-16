@@ -37,11 +37,72 @@
         /* Top Navigation */
         .top-nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background: rgba(0, 0, 0, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-nav-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .top-nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-icon-btn {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: #fff;
+        }
+
+        .profile-btn:hover {
+            border-color: #5cb3e0;
+            color: #5cb3e0;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-button svg {
+            width: 20px;
+            height: 20px;
         }
 
         /* Main Navigation Tabs */
@@ -50,8 +111,9 @@
             justify-content: center;
             gap: 80px;
             padding: 20px 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: transparent;
             position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .main-nav-item {
@@ -94,7 +156,7 @@
             display: none;
             gap: 5px;
             padding: 20px 40px;
-            background: rgba(0, 0, 0, 0.2);
+            background: transparent;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             justify-content: flex-end;
             align-items: center;
@@ -273,6 +335,10 @@
             border-bottom: 4.5px solid #e4ae39;
         }
 
+        .item-card.case-grey {
+            border-bottom: 4.5px solid #8b8b8b;
+        }
+
         .item-image-container {
             flex: 1;
             display: flex;
@@ -406,6 +472,10 @@
             background: #e4ae39;
         }
 
+        .rarity-bar.case-grey {
+            background: #8b8b8b;
+        }
+
         .modal-body {
             flex: 1;
             display: flex;
@@ -462,22 +532,29 @@
         }
 
         .modal-delete-btn {
-            padding: 14px 40px;
-            background: rgba(235, 75, 75, 0.2);
-            border: 1px solid rgba(235, 75, 75, 0.5);
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
             color: #eb4b4b;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.2s;
-            margin-right: 10px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
         }
 
         .modal-delete-btn:hover {
-            background: rgba(235, 75, 75, 0.3);
-            border-color: rgba(235, 75, 75, 0.7);
+            transform: scale(1.1);
+        }
+
+        .modal-delete-btn:hover svg path {
+            stroke: #ff5555;
         }
 
         /* Confirmation Dialog */
@@ -645,6 +722,14 @@
             line-height: 1.3;
         }
 
+        .case-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #5cb3e0;
+            font-family: 'DIN 2014', 'DIN Bold', 'DIN Next LT Pro Bold', 'DIN', Arial, sans-serif;
+            margin: 4px 0;
+        }
+
         .case-market-btn {
             display: flex;
             align-items: center;
@@ -694,6 +779,27 @@
 <body>
     <!-- Top Navigation -->
     <div class="top-nav">
+        <div class="top-nav-left">
+            <button class="nav-icon-btn" id="powerBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2v10M16.24 7.76a6 6 0 1 1-8.48 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="nav-icon-btn" id="settingsBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 1v3m0 16v3M4.22 4.22l2.12 2.12m11.32 11.32l2.12 2.12M1 12h3m16 0h3M4.22 19.78l2.12-2.12m11.32-11.32l2.12-2.12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="top-nav-right">
+            <button class="nav-icon-btn profile-btn" id="profileBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
     </div>
 
     <!-- Main Navigation -->
@@ -750,252 +856,13 @@
     <div class="tab-content" id="storeTab">
         <div class="store-container">
             <div class="store-grid">
-                <div class="case-card" data-case-id="prime" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/prime.webp" alt="Prime Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Prime Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="gallery" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/gallery.webp" alt="Gallery Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Gallery Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="kilowatt" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/kilowatt.webp" alt="Kilowatt Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Kilowatt Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="revolution" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/revolution.webp" alt="Revolution Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Revolution Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="recoil" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/recoil.webp" alt="Recoil Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Recoil Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="dreams" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/dreams.webp" alt="Dreams & Nightmares Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Dreams & Nightmares Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="riptide" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/riptide.webp" alt="Operation Riptide Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Operation Riptide Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="case-card" data-case-id="snakebite" style="--glow-color: rgba(220, 140, 60, 0.35);">
                     <div class="case-image-container">
                         <img src="images/snakebite.webp" alt="Snakebite Case" class="case-image">
                     </div>
                     <div class="case-info">
                         <div class="case-name">Snakebite Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="broken-fang" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/broken-fang.webp" alt="Operation Broken Fang Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Operation Broken Fang Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="fracture" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/fracture.webp" alt="Fracture Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Fracture Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="prisma2" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/prisma2.webp" alt="Prisma 2 Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Prisma 2 Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="cs20" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/cs20.webp" alt="CS20 Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">CS20 Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="shattered-web" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/shattered-web.webp" alt="Shattered Web Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Shattered Web Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="prisma" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/prisma.webp" alt="Prisma Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Prisma Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="danger-zone" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/danger-zone.webp" alt="Danger Zone Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Danger Zone Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="horizon" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/horizon.webp" alt="Horizon Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Horizon Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="clutch" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/clutch.webp" alt="Clutch Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Clutch Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="spectrum2" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/spectrum2.webp" alt="Spectrum 2 Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Spectrum 2 Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="hydra" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/hydra.webp" alt="Operation Hydra Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Operation Hydra Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="spectrum" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/spectrum.webp" alt="Spectrum Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Spectrum Case</div>
-                        <div class="case-market-btn">
-                            <span>View On Market</span>
-                            <div class="info-icon">i</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="case-card" data-case-id="glove" style="--glow-color: rgba(220, 140, 60, 0.35);">
-                    <div class="case-image-container">
-                        <img src="images/glove.webp" alt="Glove Case" class="case-image">
-                    </div>
-                    <div class="case-info">
-                        <div class="case-name">Glove Case</div>
+                        <div class="case-price">$2.50</div>
                         <div class="case-market-btn">
                             <span>View On Market</span>
                             <div class="info-icon">i</div>
@@ -1019,6 +886,12 @@
     <!-- Inspection Modal -->
     <div class="modal-overlay" id="inspectModal">
         <div class="modal-content">
+            <button class="modal-delete-btn" id="deleteModal" style="display: none;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z" stroke="#eb4b4b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10 11v6M14 11v6" stroke="#eb4b4b" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
             <div class="modal-header">
                 <div class="modal-weapon-rarity" id="modalRarity">CONSUMER GRADE</div>
                 <div class="modal-weapon-name" id="modalWeaponName">Default Knife</div>
@@ -1028,7 +901,6 @@
                 <div class="weapon-display" id="modalWeaponEmoji">🔪</div>
             </div>
             <div class="modal-footer">
-                <button class="modal-delete-btn" id="deleteModal" style="display: none;">DELETE</button>
                 <button class="modal-close-btn" id="closeModal">CLOSE</button>
             </div>
         </div>
@@ -1046,27 +918,7 @@
     <script>
         // Available cases in the store
         const availableCases = [
-            { id: 'prime', name: 'Prime Case', imageName: 'prime.webp' },
-            { id: 'gallery', name: 'Gallery Case', imageName: 'gallery.webp' },
-            { id: 'kilowatt', name: 'Kilowatt Case', imageName: 'kilowatt.webp' },
-            { id: 'revolution', name: 'Revolution Case', imageName: 'revolution.webp' },
-            { id: 'recoil', name: 'Recoil Case', imageName: 'recoil.webp' },
-            { id: 'dreams', name: 'Dreams & Nightmares Case', imageName: 'dreams.webp' },
-            { id: 'riptide', name: 'Operation Riptide Case', imageName: 'riptide.webp' },
-            { id: 'snakebite', name: 'Snakebite Case', imageName: 'snakebite.webp' },
-            { id: 'broken-fang', name: 'Operation Broken Fang Case', imageName: 'broken-fang.webp' },
-            { id: 'fracture', name: 'Fracture Case', imageName: 'fracture.webp' },
-            { id: 'prisma2', name: 'Prisma 2 Case', imageName: 'prisma2.webp' },
-            { id: 'cs20', name: 'CS20 Case', imageName: 'cs20.webp' },
-            { id: 'shattered-web', name: 'Shattered Web Case', imageName: 'shattered-web.webp' },
-            { id: 'prisma', name: 'Prisma Case', imageName: 'prisma.webp' },
-            { id: 'danger-zone', name: 'Danger Zone Case', imageName: 'danger-zone.webp' },
-            { id: 'horizon', name: 'Horizon Case', imageName: 'horizon.webp' },
-            { id: 'clutch', name: 'Clutch Case', imageName: 'clutch.webp' },
-            { id: 'spectrum2', name: 'Spectrum 2 Case', imageName: 'spectrum2.webp' },
-            { id: 'hydra', name: 'Operation Hydra Case', imageName: 'hydra.webp' },
-            { id: 'spectrum', name: 'Spectrum Case', imageName: 'spectrum.webp' },
-            { id: 'glove', name: 'Glove Case', imageName: 'glove.webp' }
+            { id: 'snakebite', name: 'Snakebite Case', imageName: 'snakebite.webp' }
         ];
 
         // Load user's purchased cases from localStorage
@@ -1399,7 +1251,7 @@
 
             // Show/hide delete button based on whether item is deletable
             const deleteBtn = document.getElementById('deleteModal');
-            deleteBtn.style.display = isDeletable ? 'inline-block' : 'none';
+            deleteBtn.style.display = isDeletable ? 'flex' : 'none';
 
             // Show modal
             modal.classList.add('active');
@@ -1500,7 +1352,7 @@
                         id: Date.now(), // Unique ID for deletion
                         name: caseData.name,
                         type: 'Case',
-                        rarity: 'extraordinary',
+                        rarity: 'case-grey',
                         imageName: caseData.imageName
                     };
                     

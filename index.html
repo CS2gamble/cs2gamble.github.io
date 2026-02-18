@@ -507,6 +507,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
+            gap: 15px;
         }
 
         .modal-close-btn {
@@ -525,6 +526,25 @@
         .modal-close-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-unlock-btn {
+            padding: 14px 40px;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #4caf50;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .modal-unlock-btn:hover {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.7);
         }
 
         .modal-delete-btn {
@@ -777,6 +797,247 @@
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
         }
+
+        /* Case Opening Overlay */
+        .case-opening-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 3000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .case-opening-overlay.active {
+            display: block;
+        }
+
+        .case-opening-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .roll-viewport {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+
+        .roll-selector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, transparent 0%, #4caf50 20%, #4caf50 80%, transparent 100%);
+            transform: translateX(-50%);
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+        }
+
+        .roll-items {
+            display: flex;
+            position: absolute;
+            left: 50%;
+            gap: 15px;
+            transition: transform cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .roll-item {
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(180deg, rgba(60, 55, 50, 0.6) 0%, rgba(40, 35, 30, 0.8) 50%, rgba(20, 18, 15, 0.95) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .roll-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4.5px;
+        }
+
+        .roll-item.consumer-grade::after { background: #b0c3d9; }
+        .roll-item.industrial-grade::after { background: #5e98d9; }
+        .roll-item.mil-spec::after { background: #4b69ff; }
+        .roll-item.restricted::after { background: #8847ff; }
+        .roll-item.classified::after { background: #d32ce6; }
+        .roll-item.covert::after { background: #eb4b4b; }
+        .roll-item.extraordinary::after { background: #e4ae39; }
+
+        .roll-item-image {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .roll-item-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+        }
+
+        .roll-item-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            line-height: 1.3;
+            margin-top: 10px;
+        }
+
+        .opening-skip-btn {
+            position: absolute;
+            bottom: 60px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0;
+            animation: fadeInDelay 0.3s ease 2s forwards;
+        }
+
+        @keyframes fadeInDelay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .opening-skip-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Win Reveal Screen */
+        .win-reveal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 4000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .win-reveal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .win-reveal-content {
+            text-align: center;
+            animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .win-reveal-rarity {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .win-reveal-name {
+            font-size: 48px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .win-reveal-image {
+            width: 500px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 40px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.8));
+        }
+
+        .win-reveal-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .win-reveal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .win-reveal-btn {
+            padding: 14px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .win-reveal-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .win-reveal-btn.primary {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: rgba(76, 175, 80, 0.5);
+            color: #4caf50;
+        }
+
+        .win-reveal-btn.primary:hover {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -902,6 +1163,7 @@
             </div>
             <div class="modal-footer">
                 <button class="modal-close-btn" id="closeModal">CLOSE</button>
+                <button class="modal-unlock-btn" id="unlockCaseBtn">UNLOCK CASE</button>
             </div>
         </div>
     </div>
@@ -915,7 +1177,40 @@
         </div>
     </div>
 
+    <!-- Case Opening Overlay -->
+    <div class="case-opening-overlay" id="caseOpeningOverlay">
+        <div class="case-opening-container">
+            <div class="roll-viewport">
+                <div class="roll-selector"></div>
+                <div class="roll-items" id="rollItems"></div>
+            </div>
+            <button class="opening-skip-btn" id="skipOpeningBtn">SKIP</button>
+        </div>
+    </div>
+
+    <!-- Win Reveal Overlay -->
+    <div class="win-reveal-overlay" id="winRevealOverlay">
+        <div class="win-reveal-content">
+            <div class="win-reveal-rarity" id="winRarity">COVERT</div>
+            <div class="win-reveal-name" id="winName">AK-47 | Redline</div>
+            <div class="win-reveal-image" id="winImage">
+                <img src="" alt="">
+            </div>
+            <div class="win-reveal-buttons">
+                <button class="win-reveal-btn" id="winCloseBtn">CLOSE</button>
+                <button class="win-reveal-btn primary" id="winOpenAnotherBtn">OPEN ANOTHER</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // ========================================
+        // RESET ALL USER DATA (Clear inventory)
+        // ========================================
+        localStorage.removeItem('userCases');
+        localStorage.removeItem('userWins');
+        localStorage.removeItem('sortPreference');
+
         // Available cases in the store
         const availableCases = [
             { id: 'snakebite', name: 'Snakebite Case', imageName: 'snakebite.webp' }
@@ -923,14 +1218,6 @@
 
         // Load user's purchased cases from localStorage
         let userCases = JSON.parse(localStorage.getItem('userCases')) || [];
-
-        // Migrate any old case-grey entries to consumer-grade
-        let migrated = false;
-        userCases = userCases.map(c => {
-            if (c.rarity === 'case-grey') { migrated = true; return { ...c, rarity: 'consumer-grade' }; }
-            return c;
-        });
-        if (migrated) localStorage.setItem('userCases', JSON.stringify(userCases));
 
         // Default CS2 weapon inventory
         const defaultInventory = [
@@ -1257,6 +1544,10 @@
             const deleteBtn = document.getElementById('deleteModal');
             deleteBtn.style.display = isDeletable ? 'flex' : 'none';
 
+            // Show/hide unlock button (only for cases)
+            const unlockBtn = document.getElementById('unlockCaseBtn');
+            unlockBtn.style.display = (item.type === 'Case' && isDeletable) ? 'block' : 'none';
+
             // Show modal
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1425,6 +1716,279 @@
                 }
             });
         });
+
+        // ========================================
+        // CASE OPENING SYSTEM
+        // ========================================
+
+        // Case loot pools with realistic CS2 odds
+        const caseLootPools = {
+            'snakebite': [
+                // Mil-Spec Grade (79.92%) - Blue
+                { name: 'UMP-45 | Oscillator', type: 'SMG', rarity: 'mil-spec', imageName: 'ump-45.webp', weight: 11.42 },
+                { name: 'Nova | Windblown', type: 'Shotgun', rarity: 'mil-spec', imageName: 'nova.webp', weight: 11.42 },
+                { name: 'M249 | O.S.I.P.R.', type: 'Machine Gun', rarity: 'mil-spec', imageName: 'm249.webp', weight: 11.42 },
+                { name: 'SG 553 | Heavy Metal', type: 'Rifle', rarity: 'mil-spec', imageName: 'sg-553.webp', weight: 11.42 },
+                { name: 'CZ75-Auto | Circaetus', type: 'Pistol', rarity: 'mil-spec', imageName: 'cz75-auto.webp', weight: 11.42 },
+                { name: 'R8 Revolver | Junk Yard', type: 'Pistol', rarity: 'mil-spec', imageName: 'r8-revolver.webp', weight: 11.42 },
+                { name: 'Glock-18 | Clear Polymer', type: 'Pistol', rarity: 'mil-spec', imageName: 'glock-18.webp', weight: 11.40 },
+                
+                // Restricted (15.98%) - Purple
+                { name: 'Negev | dev_texture', type: 'Machine Gun', rarity: 'restricted', imageName: 'negev.webp', weight: 3.2 },
+                { name: 'P250 | Cyber Shell', type: 'Pistol', rarity: 'restricted', imageName: 'p250.webp', weight: 3.2 },
+                { name: 'MAC-10 | Button Masher', type: 'SMG', rarity: 'restricted', imageName: 'mac-10.webp', weight: 3.2 },
+                { name: 'Desert Eagle | Trigger Discipline', type: 'Pistol', rarity: 'restricted', imageName: 'desert-eagle.webp', weight: 3.2 },
+                { name: 'AK-47 | Slate', type: 'Rifle', rarity: 'restricted', imageName: 'ak-47.webp', weight: 3.18 },
+                
+                // Classified (3.2%) - Pink
+                { name: 'XM1014 | XOXO', type: 'Shotgun', rarity: 'classified', imageName: 'xm1014.webp', weight: 1.07 },
+                { name: 'MP9 | Food Chain', type: 'SMG', rarity: 'classified', imageName: 'mp9.webp', weight: 1.07 },
+                { name: 'Galil AR | Chromatic Aberration', type: 'Rifle', rarity: 'classified', imageName: 'galil-ar.webp', weight: 1.06 },
+                
+                // Covert (0.64%) - Red
+                { name: 'M4A4 | In Living Color', type: 'Rifle', rarity: 'covert', imageName: 'm4a4.webp', weight: 0.32 },
+                { name: 'USP-S | The Traitor', type: 'Pistol', rarity: 'covert', imageName: 'usp-s.webp', weight: 0.32 },
+                
+                // Extraordinary (0.26%) - Gold ★ Gloves
+                { name: '★ Sport Gloves | Arid', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Sport Gloves | Big Game', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Sport Gloves | Hedge Maze', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Sport Gloves | Pandora\'s Box', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Driver Gloves | Crimson Weave', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Driver Gloves | Imperial Plaid', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Hand Wraps | Cobalt Skulls', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Hand Wraps | Constrictor', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Moto Gloves | Boom!', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Moto Gloves | Eclipse', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Specialist Gloves | Crimson Kimono', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Specialist Gloves | Crimson Web', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Specialist Gloves | Fade', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Specialist Gloves | Foundation', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Bloodhound Gloves | Charred', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Bloodhound Gloves | Snakebite', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Broken Fang Gloves | Jade', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Broken Fang Gloves | Needle Point', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Broken Fang Gloves | Unhinged', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Broken Fang Gloves | Yellow-banded', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Hydra Gloves | Case Hardened', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Hydra Gloves | Emerald', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+                { name: '★ Hydra Gloves | Mangrove', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovest.webp', imageScale: 1.25, offsetX: 7.5, offsetY: 7.5, brightness: 0.5, weight: 0.0108 },
+                { name: '★ Hydra Gloves | Rattler', type: 'Gloves', rarity: 'extraordinary', imageName: 'glovesct.webp', brightness: 0.5, weight: 0.0108 },
+            ]
+        };
+
+        // Weighted random selection
+        function selectRandomItem(lootPool) {
+            const totalWeight = lootPool.reduce((sum, item) => sum + item.weight, 0);
+            let random = Math.random() * totalWeight;
+            
+            for (const item of lootPool) {
+                random -= item.weight;
+                if (random <= 0) {
+                    return { ...item };
+                }
+            }
+            
+            return { ...lootPool[0] };
+        }
+
+        // Open case animation
+        function openCase(caseItem) {
+            const lootPool = caseLootPools[caseItem.id] || caseLootPools['snakebite'];
+            
+            // First, select the winning item
+            const winningItem = selectRandomItem(lootPool);
+            
+            // Generate all other items
+            const totalItems = 50;
+            const winIndex = Math.floor(totalItems * 0.75); // Winning item will be at 75% position
+            const items = [];
+            
+            for (let i = 0; i < totalItems; i++) {
+                if (i === winIndex) {
+                    // Place the winning item at the exact position where we'll stop
+                    items.push(winningItem);
+                } else {
+                    // Fill other positions with random items
+                    items.push(selectRandomItem(lootPool));
+                }
+            }
+            
+            // Show opening overlay
+            const overlay = document.getElementById('caseOpeningOverlay');
+            const rollItemsContainer = document.getElementById('rollItems');
+            overlay.classList.add('active');
+            
+            // Clear previous items
+            rollItemsContainer.innerHTML = '';
+            
+            // Create roll items
+            items.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = `roll-item ${item.rarity}`;
+                
+                let imageStyle = '';
+                if (item.brightness) {
+                    imageStyle = `style="filter: brightness(${item.brightness})"`;
+                }
+                
+                const imagePath = item.type === 'Case' ? `images/${item.imageName}` : `images/weapons/${item.imageName}`;
+                
+                itemEl.innerHTML = `
+                    <div class="roll-item-image">
+                        <img src="${imagePath}" alt="${item.name}" ${imageStyle}>
+                    </div>
+                    <div class="roll-item-name">${item.name}</div>
+                `;
+                
+                rollItemsContainer.appendChild(itemEl);
+            });
+            
+            // Calculate final position (center the winning item exactly on the green line)
+            const itemWidth = 215; // 200px + 15px gap
+            const finalOffset = -(winIndex * itemWidth - window.innerWidth / 2 + 100);
+            
+            // Animate
+            rollItemsContainer.style.transition = 'none';
+            rollItemsContainer.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                rollItemsContainer.style.transition = 'transform 5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                rollItemsContainer.style.transform = `translateX(${finalOffset}px)`;
+            }, 100);
+            
+            // Show skip button and handle skip/auto-complete
+            const skipBtn = document.getElementById('skipOpeningBtn');
+            let skipped = false;
+            
+            const finishOpening = () => {
+                if (skipped) return;
+                skipped = true;
+                
+                overlay.classList.remove('active');
+                showWinReveal(winningItem, caseItem);
+            };
+            
+            skipBtn.onclick = finishOpening;
+            
+            // Auto-complete after animation
+            setTimeout(finishOpening, 5500);
+        }
+
+        // Show win reveal
+        function showWinReveal(item, openedCase) {
+            const winOverlay = document.getElementById('winRevealOverlay');
+            const winRarity = document.getElementById('winRarity');
+            const winName = document.getElementById('winName');
+            const winImageContainer = document.getElementById('winImage');
+            
+            const rarityText = (item.rarity || 'special').toUpperCase().replace(/-/g, ' ');
+            
+            if (item.rarity === 'extraordinary') {
+                winRarity.textContent = `★ ${rarityText} ★`;
+                winName.textContent = `★ ${item.name} ★`;
+            } else if (item.rarity === 'covert') {
+                winRarity.textContent = `★ ${rarityText} ★`;
+                winName.textContent = item.name;
+            } else {
+                winRarity.textContent = rarityText;
+                winName.textContent = item.name;
+            }
+            
+            let imageStyle = '';
+            if (item.brightness) {
+                imageStyle = `filter: brightness(${item.brightness});`;
+            }
+            if (item.imageScale) {
+                imageStyle += ` transform: scale(${item.imageScale});`;
+            }
+            
+            const imagePath = item.type === 'Case' ? `images/${item.imageName}` : `images/weapons/${item.imageName}`;
+            winImageContainer.innerHTML = `<img src="${imagePath}" alt="${item.name}" style="${imageStyle}">`;
+            
+            winOverlay.classList.add('active');
+            
+            // Add won item to inventory
+            const wonItem = {
+                id: Date.now(),
+                name: item.name,
+                type: item.type,
+                rarity: item.rarity,
+                imageName: item.imageName
+            };
+            
+            if (item.brightness) wonItem.brightness = item.brightness;
+            if (item.imageScale) wonItem.imageScale = item.imageScale;
+            if (item.offsetX) wonItem.offsetX = item.offsetX;
+            if (item.offsetY) wonItem.offsetY = item.offsetY;
+            
+            // Save to user's inventory (create userWins if it doesn't exist)
+            let userWins = JSON.parse(localStorage.getItem('userWins')) || [];
+            userWins.push(wonItem);
+            localStorage.setItem('userWins', JSON.stringify(userWins));
+            
+            // Remove opened case from userCases
+            userCases = userCases.filter(c => c.id !== openedCase.id);
+            localStorage.setItem('userCases', JSON.stringify(userCases));
+            
+            // Refresh inventory
+            renderInventory();
+            if (currentSort !== 'newest') {
+                sortInventory(currentSort);
+            }
+            
+            // Setup win reveal buttons
+            document.getElementById('winCloseBtn').onclick = () => {
+                winOverlay.classList.remove('active');
+                closeInspectModal();
+            };
+            
+            document.getElementById('winOpenAnotherBtn').onclick = () => {
+                winOverlay.classList.remove('active');
+                
+                // Check if user has more cases
+                const moreCases = userCases.filter(c => c.id === openedCase.id || c.name === openedCase.name);
+                if (moreCases.length > 0) {
+                    openCase(moreCases[0]);
+                } else {
+                    closeInspectModal();
+                    alert('You don\'t have any more cases of this type!');
+                }
+            };
+        }
+
+        // Unlock button click handler
+        document.getElementById('unlockCaseBtn').addEventListener('click', function() {
+            if (currentModalItem && currentModalItem.type === 'Case') {
+                closeInspectModal();
+                setTimeout(() => {
+                    openCase(currentModalItem);
+                }, 300);
+            }
+        });
+
+        // Render user wins along with inventory
+        const originalRenderInventory = renderInventory;
+        renderInventory = function() {
+            originalRenderInventory();
+            
+            // Also render user wins
+            let userWins = JSON.parse(localStorage.getItem('userWins')) || [];
+            let index = inventoryCards.length;
+            
+            userWins.forEach((winItem) => {
+                const card = createInventoryCard(winItem, index, false);
+                inventoryCards.push(card);
+                inventoryGrid.appendChild(card);
+                index++;
+            });
+        };
+
+        // Initial render with wins
+        renderInventory();
+        if (currentSort !== 'newest') {
+            sortInventory(currentSort);
+        }
     </script>
 </body>
 </html>
